@@ -1,0 +1,13 @@
+
+* text=auto eol=lf
+
+*.sh    eol=lf
+wakamiti  eol=lf
+mvnw    eol=lf
+
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.png binary
+*.gif binary
+*.apk binary
