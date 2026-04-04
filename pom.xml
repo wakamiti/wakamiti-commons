@@ -23,6 +23,8 @@
     <description></description>
 
     <properties>
+        <project.repository>wakamiti-commons</project.repository>
+
         <junit.version>5.10.3</junit.version>
     </properties>
 
