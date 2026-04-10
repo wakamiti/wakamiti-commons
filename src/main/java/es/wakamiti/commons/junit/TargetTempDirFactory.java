@@ -17,7 +17,7 @@ import java.nio.file.Path;
 
 public class TargetTempDirFactory implements TempDirFactory {
 
-    private static final Path TARGET = Path.of("target").resolve("temp-test");
+    private static final Path TARGET = Path.of("target").resolve("test-temp");
 
     @Override
     public Path createTempDirectory(
