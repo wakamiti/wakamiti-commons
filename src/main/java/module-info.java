@@ -6,6 +6,7 @@
 
 module wakamiti.commons {
 
-    exports  es.wakamiti.commons.lang;
+    exports es.wakamiti.commons.lang;
+    exports es.wakamiti.commons.security;
 
 }
