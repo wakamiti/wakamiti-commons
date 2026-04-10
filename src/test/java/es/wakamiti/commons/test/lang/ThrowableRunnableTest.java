@@ -3,9 +3,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-package es.wakamiti.commons.lang;
+
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+package es.wakamiti.commons.test.lang;
 
 
+import es.wakamiti.commons.lang.ThrowableRunnable;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -19,7 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ThrowableRunnableTest {
 
     @Test
-    void runDelegatesToRunThrowingWithArguments() {
+    @DisplayName("Delegates run to runThrowing with arguments")
+    void shouldDelegateRunToRunThrowingWithArguments() {
         AtomicInteger sum = new AtomicInteger();
         ThrowableRunnable runnable = arguments -> {
             int total = 0;
@@ -32,7 +41,8 @@ class ThrowableRunnableTest {
     }
 
     @Test
-    void runWrapsCheckedExceptionInRuntimeException() {
+    @DisplayName("Wraps checked exception in RuntimeException")
+    void shouldWrapCheckedExceptionInRuntimeException() {
         ThrowableRunnable runnable = arguments -> {
             throw new IOException("boom");
         };

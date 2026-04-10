@@ -3,9 +3,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-package es.wakamiti.commons.lang;
+
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+package es.wakamiti.commons.test.lang;
 
 
+import es.wakamiti.commons.lang.Functions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -22,31 +30,36 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class FunctionsTest {
 
     @Test
-    void letReturnsMappedValueForNonNullInput() {
+    @DisplayName("Returns mapped value when let input is non-null")
+    void shouldReturnMappedValueWhenLetInputIsNonNull() {
         Integer result = Functions.let("abc", String::length);
         assertEquals(3, result);
     }
 
     @Test
-    void letReturnsNullForNullInput() {
+    @DisplayName("Returns null when let input is null")
+    void shouldReturnNullWhenLetInputIsNull() {
         Integer result = Functions.let(null, String::length);
         assertNull(result);
     }
 
     @Test
-    void orReturnsPrimaryValueWhenPresent() {
+    @DisplayName("Returns primary value when present")
+    void shouldReturnPrimaryValueWhenPresent() {
         String result = Functions.or("value", "fallback");
         assertEquals("value", result);
     }
 
     @Test
-    void orReturnsFallbackValueWhenPrimaryIsNull() {
+    @DisplayName("Returns fallback value when primary is null")
+    void shouldReturnFallbackValueWhenPrimaryIsNull() {
         String result = Functions.or(null, "fallback");
         assertEquals("fallback", result);
     }
 
     @Test
-    void orWithSupplierEvaluatesOnlyWhenPrimaryIsNull() {
+    @DisplayName("Evaluates fallback supplier only when primary is null")
+    void shouldEvaluateFallbackSupplierOnlyWhenPrimaryIsNull() {
         AtomicInteger calls = new AtomicInteger();
         String primary = Functions.or("value", () -> {
             calls.incrementAndGet();
@@ -63,7 +76,8 @@ class FunctionsTest {
     }
 
     @Test
-    void alsoRunsActionAndReturnsOriginalValue() {
+    @DisplayName("Executes action and returns original value")
+    void shouldRunActionAndReturnOriginalValue() {
         AtomicReference<String> seen = new AtomicReference<>();
         String result = Functions.also("data", seen::set);
 
@@ -72,7 +86,8 @@ class FunctionsTest {
     }
 
     @Test
-    void alsoReturnsNullAndSkipsActionForNullValue() {
+    @DisplayName("Returns null and skips action when value is null")
+    void shouldReturnNullAndSkipActionWhenValueIsNull() {
         AtomicInteger calls = new AtomicInteger();
         String result = Functions.also(null, ignored -> calls.incrementAndGet());
 
@@ -81,7 +96,8 @@ class FunctionsTest {
     }
 
     @Test
-    void ifPresentRunsActionOnlyForNonNullValues() {
+    @DisplayName("Runs action only for non-null values")
+    void shouldRunIfPresentActionOnlyForNonNullValues() {
         AtomicInteger sum = new AtomicInteger();
 
         Functions.ifPresent(7, sum::addAndGet);
@@ -91,14 +107,16 @@ class FunctionsTest {
     }
 
     @Test
-    void castReturnsTypedValueWhenCompatible() {
+    @DisplayName("Returns typed value when cast is compatible")
+    void shouldReturnTypedValueWhenCastIsCompatible() {
         Number value = 12;
         Integer result = Functions.cast(value, Integer.class);
         assertEquals(12, result);
     }
 
     @Test
-    void castReturnsNullWhenIncompatibleOrNullInput() {
+    @DisplayName("Returns null when cast is incompatible or input is null")
+    void shouldReturnNullWhenCastIsIncompatibleOrInputIsNull() {
         Number integer = 12;
         Double incompatible = Functions.cast(integer, Double.class);
         Integer nullInput = Functions.cast(null, Integer.class);
@@ -108,13 +126,15 @@ class FunctionsTest {
     }
 
     @Test
-    void firstReturnsFirstElementOrNullForEmptyList() {
+    @DisplayName("Returns first element or null for empty list")
+    void shouldReturnFirstElementOrNullForEmptyList() {
         assertEquals("a", Functions.first(List.of("a", "b")));
         assertNull(Functions.first(List.of()));
     }
 
     @Test
-    void indexMappedReturnsImmutableMappedValuesWithIndex() {
+    @DisplayName("Returns immutable list with index-based mapped values")
+    void shouldReturnImmutableIndexedMappedValues() {
         List<String> mapped = Functions.indexMapped(List.of("a", "b", "c"), (i, value) -> i + ":" + value);
 
         assertEquals(List.of("0:a", "1:b", "2:c"), mapped);
@@ -122,13 +142,15 @@ class FunctionsTest {
     }
 
     @Test
-    void indexMappedReturnsEmptyListForNullSource() {
+    @DisplayName("Returns empty list for null source in indexMapped")
+    void shouldReturnEmptyListForNullSourceInIndexMapped() {
         List<String> mapped = Functions.indexMapped(null, (i, value) -> i + ":" + value);
         assertTrue(mapped.isEmpty());
     }
 
     @Test
-    void mappedReturnsMappedListOrEmptyForNullSource() {
+    @DisplayName("Returns mapped list or empty list when source is null")
+    void shouldReturnMappedListOrEmptyListWhenSourceIsNull() {
         List<Integer> mapped = Functions.mapped(List.of("a", "bb"), String::length);
         List<Integer> empty = Functions.mapped(null, String::length);
 
@@ -137,13 +159,15 @@ class FunctionsTest {
     }
 
     @Test
-    void concatJoinsBothListsInOrder() {
+    @DisplayName("Concatenates both lists preserving order")
+    void shouldConcatenateBothListsInOrder() {
         List<String> result = Functions.concat(List.of("a"), List.of("b", "c"));
         assertEquals(List.of("a", "b", "c"), result);
     }
 
     @Test
-    void concatCanJoinEmptyLists() {
+    @DisplayName("Concatenates empty lists into an empty result")
+    void shouldConcatenateEmptyListsIntoEmptyResult() {
         List<String> result = Functions.concat(List.of(), List.of());
         assertFalse(result.iterator().hasNext());
     }

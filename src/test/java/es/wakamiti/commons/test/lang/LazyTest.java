@@ -3,9 +3,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-package es.wakamiti.commons.lang;
+
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+package es.wakamiti.commons.test.lang;
 
 
+import es.wakamiti.commons.lang.Lazy;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
@@ -20,7 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class LazyTest {
 
     @Test
-    void getComputesOnlyOnceUntilReset() {
+    @DisplayName("Computes value only once until reset is called")
+    void shouldComputeValueOnlyOnceUntilReset() {
         AtomicInteger calls = new AtomicInteger();
         Lazy<Integer> lazy = Lazy.of(calls::incrementAndGet);
 
@@ -33,7 +42,8 @@ class LazyTest {
     }
 
     @Test
-    void getCachesNullValues() {
+    @DisplayName("Caches null values after first computation")
+    void shouldCacheNullValues() {
         AtomicInteger calls = new AtomicInteger();
         Lazy<String> lazy = Lazy.of(() -> {
             calls.incrementAndGet();
@@ -46,7 +56,8 @@ class LazyTest {
     }
 
     @Test
-    void resetInvalidatesCache() {
+    @DisplayName("Invalidates cache when reset is called")
+    void shouldInvalidateCacheWhenResetIsCalled() {
         AtomicInteger calls = new AtomicInteger();
         Lazy<Integer> lazy = Lazy.of(calls::incrementAndGet);
 
@@ -57,7 +68,8 @@ class LazyTest {
     }
 
     @Test
-    void mapUsesSourceLazyCache() {
+    @DisplayName("Uses source lazy cache when mapping values")
+    void shouldUseSourceLazyCacheWhenMappingValues() {
         AtomicInteger calls = new AtomicInteger();
         Lazy<Integer> source = Lazy.of(calls::incrementAndGet);
         Lazy<String> mapped = source.map(v -> "v" + v);
@@ -68,35 +80,41 @@ class LazyTest {
     }
 
     @Test
-    void ofOptionalUnwrapsValue() {
+    @DisplayName("Unwraps value from optional supplier")
+    void shouldUnwrapValueFromOptionalSupplier() {
         Lazy<String> lazy = Lazy.ofOptional(() -> Optional.of("ok"));
         assertEquals("ok", lazy.get());
     }
 
     @Test
-    void ofOptionalFailsWhenEmpty() {
+    @DisplayName("Throws when optional supplier returns empty")
+    void shouldThrowWhenOptionalSupplierReturnsEmpty() {
         Lazy<String> lazy = Lazy.ofOptional(Optional::<String>empty);
         assertThrows(NoSuchElementException.class, lazy::get);
     }
 
     @Test
-    void ofOptionalFailsWhenSupplierReturnsNullOptional() {
+    @DisplayName("Throws when optional supplier returns null")
+    void shouldThrowWhenOptionalSupplierReturnsNull() {
         Lazy<String> lazy = Lazy.ofOptional(() -> null);
         assertThrows(NullPointerException.class, lazy::get);
     }
 
     @Test
-    void ofRejectsNullSupplier() {
+    @DisplayName("Rejects null supplier in of factory")
+    void shouldRejectNullSupplierInOfFactory() {
         assertThrows(NullPointerException.class, () -> Lazy.of(null));
     }
 
     @Test
-    void ofOptionalRejectsNullSupplier() {
+    @DisplayName("Rejects null supplier in ofOptional factory")
+    void shouldRejectNullSupplierInOfOptionalFactory() {
         assertThrows(NullPointerException.class, () -> Lazy.ofOptional(null));
     }
 
     @Test
-    void mapRejectsNullMapper() {
+    @DisplayName("Rejects null mapper in map operation")
+    void shouldRejectNullMapperInMapOperation() {
         Lazy<Integer> lazy = Lazy.of(() -> 1);
         assertThrows(NullPointerException.class, () -> lazy.map(null));
     }
