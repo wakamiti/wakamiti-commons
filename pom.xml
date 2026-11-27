@@ -38,4 +38,14 @@
         <module>wakamiti-commons-test</module>
     </modules>
 
+    <build>
+        <plugins>
+            <!-- resolve ${revision} in the published POMs, otherwise consumers cannot resolve the parent -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
