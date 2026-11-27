@@ -3,10 +3,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-module wakamiti.commons.test {
+module wakamiti.commons.tests {
 
     requires org.junit.jupiter.params;
     requires wakamiti.commons;
+    requires wakamiti.commons.test;
 
     exports es.wakamiti.commons.test.lang;
     exports es.wakamiti.commons.test.security;
