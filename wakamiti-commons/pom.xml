@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  -->
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>es.wakamiti</groupId>
+        <artifactId>wakamiti-commons-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <!-- coordinates -->
+    <artifactId>wakamiti-commons</artifactId>
+
+    <!-- additional information -->
+    <name>Wakamiti Commons</name>
+    <description>Language utilities, the base exception and hashing, with no external dependencies</description>
+
+    <dependencies>
+        <!-- test -->
+        <dependency>
+            <groupId>es.wakamiti</groupId>
+            <artifactId>wakamiti-commons-test</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
